@@ -7,10 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrations:generate": "drizzle-kit generate:mysql",
-    "migrations:push": "node -r esbuild-register src/lib/db/migrate.ts",
+    "db:generate": "drizzle-kit generate:mysql",
+    "wmigrations:push": "tsx src/lib/db/migrate.ts",
     "db:push": "drizzle-kit push:mysql --config=drizzle.config.ts",
-    "migrations:drop": "drizzle-kit drop --config=drizzle.config.ts"
+    "migrations:drop": "drizzle-kit drop --config=drizzle.config.ts",
+    "seed:questions": "tsx ./src/lib/db/seed-questions.ts"
   },
   "dependencies": {
     "@planetscale/database": "^1.11.0",
@@ -19,8 +20,8 @@
     "@types/react-dom": "18.2.17",
     "autoprefixer": "10.4.16",
     "dotenv": "^16.3.1",
-    "drizzle-orm": "^0.29.0",
     "drizzle-kit": "^0.20.4",
+    "drizzle-orm": "^0.29.0",
     "eslint": "8.54.0",
     "eslint-config-next": "14.0.3",
     "mysql2": "^3.6.5",
@@ -33,6 +34,6 @@
     "undici": "^5.27.2"
   },
   "devDependencies": {
-    "esbuild-register": "^3.5.0"
+    "tsx": "^4.3.0"
   }
 }

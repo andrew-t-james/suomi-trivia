@@ -6,6 +6,7 @@ import {
   int,
   boolean,
   unique,
+  json,
 } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable(
@@ -27,6 +28,7 @@ export const triviaQuestions = mysqlTable("trivia_questions", {
   id: serial("id").primaryKey(),
   question: varchar("question", { length: 500 }),
   answer: varchar("answer", { length: 500 }),
+  wrongAnswers: json("wrong_answers"), // Storing wrong answers as a JSON array
   category: varchar("category", { length: 120 }),
   createdAt: timestamp("created_at").defaultNow(),
 });

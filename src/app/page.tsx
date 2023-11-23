@@ -1,9 +1,8 @@
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
+import { Routes } from "@/types/routes";
 import { redirect } from "next/navigation";
-// import { redirect } from "next/navigation";
 
-// oh yeah, this is the future
 export const runtime = "edge";
 
 function Register() {
@@ -41,7 +40,9 @@ function Register() {
       };
     }
 
-    if (success) redirect("/questions");
+    if (success) {
+      redirect(Routes.Questions);
+    }
   }
 
   return (
