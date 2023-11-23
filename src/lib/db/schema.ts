@@ -1,19 +1,46 @@
-import { mysqlTable, serial, text, varchar, int } from 'drizzle-orm/mysql-core'
+import {
+  mysqlTable,
+  serial,
+  varchar,
+  timestamp,
+  int,
+  boolean,
+  unique,
+} from "drizzle-orm/mysql-core";
 
-/**
- * This is a sample schema.
- * Replace this with your own schema and then run migrations.
- */
+export const users = mysqlTable(
+  "users",
+  {
+    id: serial("id").primaryKey(),
+    firstName: varchar("first_name", { length: 120 }),
+    lastName: varchar("last_name", { length: 120 }),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (t) => {
+    return {
+      unq: unique().on(t.firstName, t.lastName),
+    };
+  },
+);
 
-export const user = mysqlTable('user', {
-  id: serial('id').primaryKey(),
-  fullName: text('full_name'),
-  phone: varchar('phone', { length: 256 }),
-})
+export const triviaQuestions = mysqlTable("trivia_questions", {
+  id: serial("id").primaryKey(),
+  question: varchar("question", { length: 500 }),
+  answer: varchar("answer", { length: 500 }),
+  category: varchar("category", { length: 120 }),
+  createdAt: timestamp("created_at").defaultNow(),
+});
 
-export const post = mysqlTable('post', {
-  id: serial('id').primaryKey(),
-  title: text('title'),
-  likes: int('likes'),
-  userId: int('userId'),
-})
+export const userScores = mysqlTable("user_scores", {
+  id: serial("id").primaryKey(),
+  userId: int("user_id"),
+  score: int("score"),
+  playedAt: timestamp("played_at").defaultNow(),
+});
+
+export const activeSessions = mysqlTable("active_sessions", {
+  id: serial("id").primaryKey(),
+  userId: int("user_id"),
+  isActive: boolean("is_active").default(true),
+  lastActiveAt: timestamp("last_active_at").defaultNow(),
+});
